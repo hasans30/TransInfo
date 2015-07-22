@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NextBuses xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <NextBus>
+    <RouteNo>015</RouteNo>
+    <RouteName>CAMBIE/OLYMPIC VILLAGE STN</RouteName>
+    <Direction>NORTH</Direction>
+    <RouteMap>
+      <Href>http://nb.translink.ca/geodata/015.kmz</Href>
+    </RouteMap>
+    <Schedules>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>8:44pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>1</ExpectedCountdown>
+        <ScheduleStatus>-</ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>07:39:09 pm</LastUpdate>
+      </Schedule>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>9:02pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>19</ExpectedCountdown>
+        <ScheduleStatus>*</ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>07:59:08 pm</LastUpdate>
+      </Schedule>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>9:22pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>39</ExpectedCountdown>
+        <ScheduleStatus></ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>08:19:04 pm</LastUpdate>
+      </Schedule>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>9:42pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>59</ExpectedCountdown>
+        <ScheduleStatus></ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>08:39:07 pm</LastUpdate>
+      </Schedule>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>10:03pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>80</ExpectedCountdown>
+        <ScheduleStatus>*</ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>12:19:21 am</LastUpdate>
+      </Schedule>
+      <Schedule>
+        <Pattern>NB1</Pattern>
+        <Destination>OLYMPIC VILLAGE STN</Destination>
+        <ExpectedLeaveTime>10:23pm 2015-07-15</ExpectedLeaveTime>
+        <ExpectedCountdown>100</ExpectedCountdown>
+        <ScheduleStatus>*</ScheduleStatus>
+        <CancelledTrip>false</CancelledTrip>
+        <CancelledStop>false</CancelledStop>
+        <AddedTrip>false</AddedTrip>
+        <AddedStop>false</AddedStop>
+        <LastUpdate>12:19:21 am</LastUpdate>
+      </Schedule>
+    </Schedules>
+  </NextBus>
+</NextBuses>
