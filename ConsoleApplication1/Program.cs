@@ -11,9 +11,10 @@ namespace ConsoleApplication1
         //some comment
         static void Main(string[] args)
         {
-            Task<string> response =  TransInfo.Util.Utils.LoadRemoteData("http://api.translink.ca/rttiapi/v1/stops/50996/estimates?apikey=13EpwPoHGIACYo3NM5Lh&routeno=15");
+            Task<string> t1 =  TransInfo.UtilMain.Utils.LoadRemoteData("http://api.translink.ca/rttiapi/v1/stops/50996/estimates?apikey=13EpwPoHGIACYo3NM5Lh&routeno=15");
             Console.WriteLine("2 waiting for task to finish...");
-            string str = response.Result;
+            t1.Wait(6000);
+            string str = t1.Result;
             Console.WriteLine(str);
             Console.ReadLine();
             //local changes
