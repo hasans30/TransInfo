@@ -13,6 +13,20 @@ namespace BugBurnDown
     {
         static void Main(string[] args)
         {
+
+            Try2(args);
+        }
+        static void Try2(string[] args)
+        {
+            NetworkCredential netCred = CredentialCache.DefaultCredentials.GetCredential(new Uri("http://something"), "Basic");
+            TeamFoundationServer tfs = new TeamFoundationServer("http://vstfmsn:8080/tfs");
+            tfs.Authenticate();
+            WorkItemStore workItemS = (WorkItemStore)tfs.GetService(typeof(WorkItem));
+            Project prj = workItemS.Projects[0];
+
+        }
+        static void Try1(string[] args)
+        {
             NetworkCredential tfsCredential = CredentialCache.DefaultCredentials.GetCredential(new Uri("http://tempurl.org"),"Basic");
 
             TfsConfigurationServer configurationServer =

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml;
+using System.Xml.Linq;
+using Windows.Data.Xml.Dom;
 namespace TransInfo.DataModel
 {
     class NextBus
@@ -22,6 +22,23 @@ namespace TransInfo.DataModel
             Direction = direction;
             RouteMapUrl = routeMapUrl;
             Schedules = new List<Schedule>();
+
+        }
+
+        public NextBus(string str)
+        {
+
+           XmlDocument xdoc = new XmlDocument();
+            xdoc.LoadXml(str);
+            /*
+            XmlNode node = xdoc.SelectNodes("NextBuses").Item(0);
+            node = node.SelectNodes("NextBus").Item(0);
+            //NextBus nb = new NextBus(node.SelectNodes("RouteNo"));
+            string routeNo = node.SelectNodes("RouteNo").Item(0).InnerText;
+            string routename = node.SelectNodes("RouteName").Item(0).InnerText;
+            string direction = node.SelectNodes("Direction").Item(0).InnerText;
+            string routeMapUrl = node.SelectNodes("RouteMap").Item(0).InnerText;
+            */
 
         }
 

@@ -14,7 +14,6 @@ namespace TransInfo.UtilMain
         {
             HttpClient client = new HttpClient();
             string response = await client.GetStringAsync(url);
-            Console.WriteLine("1 inside LoadRemoteData: just before returning");
             return response;
         }
 
