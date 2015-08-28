@@ -27,18 +27,16 @@ namespace TransInfo.DataModel
 
         public NextBus(string str)
         {
+            XElement xdoc = XElement.Parse(str);
+            foreach(var xnode in xdoc.Descendants("NextBuses / NextBus / Schedules / Schedule"))
+            {
+                foreach( var el in xnode.Elements())
+                {
+                    //to do code
+                }
+                              
+            }
 
-           XmlDocument xdoc = new XmlDocument();
-            xdoc.LoadXml(str);
-            /*
-            XmlNode node = xdoc.SelectNodes("NextBuses").Item(0);
-            node = node.SelectNodes("NextBus").Item(0);
-            //NextBus nb = new NextBus(node.SelectNodes("RouteNo"));
-            string routeNo = node.SelectNodes("RouteNo").Item(0).InnerText;
-            string routename = node.SelectNodes("RouteName").Item(0).InnerText;
-            string direction = node.SelectNodes("Direction").Item(0).InnerText;
-            string routeMapUrl = node.SelectNodes("RouteMap").Item(0).InnerText;
-            */
 
         }
 
