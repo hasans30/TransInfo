@@ -15,13 +15,14 @@ namespace ConsoleApplication1
             Task<string> t1 = TransInfo.UtilMain.Utils.LoadRemoteData("http://api.translink.ca/rttiapi/v1/stops/50996/estimates?apikey=13EpwPoHGIACYo3NM5Lh&routeno=15");
             t1.Wait(6000);
             string str = t1.Result;
-            Console.WriteLine(str);
+            //Console.WriteLine(str);
+
             NextBus nb = new NextBus(str);
-
+            Console.WriteLine("Displaying data for {0} {1}", nb.RouteName, nb.Direction);
+            Console.WriteLine("Next Bus is at {0}", nb.Schedules[0].ExpectedLeaveTime);
+            Console.WriteLine("And then at {0}", nb.Schedules[1].ExpectedLeaveTime);
             //Convert the xml response to object of type TransInfo
-            
-
-            Console.ReadLine();
+            Console.Read();
             //local changes
 
         }
@@ -30,74 +31,68 @@ namespace ConsoleApplication1
 
 
 
-    class NextBus
+class NextBus
+{
+    public string RouteNo { get; set; }
+    public string RouteName { get; set; }
+    public string Direction { get; set; }
+    public string RouteMapUrl { get; set; }
+
+    public List<Schedule> Schedules;
+
+    public NextBus()
     {
-        public string RouteNo { get; set; }
-        public string RouteName { get; set; }
-        public string Direction { get; set; }
-        public string RouteMapUrl { get; set; }
-
-        public List<Schedule> Schedules;
-
-        public NextBus(string routeNo, string routeName, string direction, string routeMapUrl)
-        {
-            RouteNo = routeNo;
-            RouteName = routeName;
-            Direction = direction;
-            RouteMapUrl = routeMapUrl;
-            Schedules = new List<Schedule>();
-
-        }
+        Schedules = new List<Schedule>();
+    }
 
     public NextBus(string str)
     {
+        XElement xdoc = XElement.Parse(str);
 
-        XmlDocument xdoc = new XmlDocument();
-        xdoc.LoadXml(str);
-        XmlNode node = xdoc.SelectNodes("NextBuses").Item(0);
-        node = node.SelectNodes("NextBus").Item(0);
-        //NextBus nb = new NextBus(node.SelectNodes("RouteNo"));
-        string routeNo = node.SelectNodes("RouteNo").Item(0).InnerText;
-        string routename = node.SelectNodes("RouteName").Item(0).InnerText;
-        string direction = node.SelectNodes("Direction").Item(0).InnerText;
-        string routeMapUrl = node.SelectNodes("RouteMap").Item(0).InnerText;
+        var routeNode = (from elm in xdoc.Elements("NextBus")
+                         select elm).SingleOrDefault();
 
-        RouteNo = routeNo;
-        RouteName = routename;
-        Direction = direction;
-        RouteMapUrl = routeMapUrl;
-        Schedules = new List<Schedule>();
-
-        XmlNodeList xnode1 = xdoc.SelectNodes("NextBuses/NextBus/Schedules/Schedule");
-
-        foreach (XmlNode xnode in xnode1)
+        if (routeNode != null)
         {
-            Console.WriteLine("{0}\n{1}",
-                xnode.SelectNodes("Pattern").Item(0).InnerText,
-                xnode.SelectNodes("ExpectedLeaveTime").Item(0).InnerText
-                );
+            RouteNo = routeNode.Element("RouteNo").Value;
+            RouteName = routeNode.Element("RouteName").Value;
+            Direction = routeNode.Element("Direction").Value;
+            RouteMapUrl = routeNode.Element("RouteMap").Value;
 
+
+
+            IEnumerable<Schedule> xnode1 = from elm in xdoc.Elements("NextBus").Elements("Schedules").Elements("Schedule")
+                                           select new Schedule
+                                           {
+                                               Destination = elm.Element("Destination").Value,
+                                               ExpectedLeaveTime = Convert.ToDateTime(elm.Element("ExpectedLeaveTime").Value),
+                                               ExpectedCountdown = Convert.ToInt32(elm.Element("ExpectedCountdown").Value),
+                                               ScheduleStatus = elm.Element("ScheduleStatus").Value,
+                                               CancelledTrip = Convert.ToBoolean(elm.Element("CancelledTrip").Value),
+                                               CancelledStop = Convert.ToBoolean(elm.Element("CancelledStop").Value),
+                                               AddedTrip = Convert.ToBoolean(elm.Element("AddedTrip").Value),
+                                               AddedStop = Convert.ToBoolean(elm.Element("AddedStop").Value),
+                                               LastUpdated = Convert.ToDateTime(elm.Element("LastUpdate").Value)
+                                           };
+
+            Schedules=xnode1.ToList();
         }
+
     }
+}
 
-        public void SetSchedule(List<Schedule> schdl)
-        {
-            Schedules = schdl;
-        }
-    }
-
-    class Schedule
-    {
-        public string Destinition { get; set; }
-        public DateTime ExpectedLeaveTime { get; set; }
-        public Int32 ExpectedCountdown { get; set; }
-        public string ScheduleStatus { get; set; }
-        public Boolean CancelledTrip { get; set; }
-        public Boolean CancelledStop { get; set; }
-        public Boolean AddedTrip { get; set; }
-        public Boolean AddedStop { get; set; }
-        public DateTime LastUpdated { get; set; }
-
+class Schedule
+{
+    public string Destination { get; set; }
+    public DateTime ExpectedLeaveTime { get; set; }
+    public Int32 ExpectedCountdown { get; set; }
+    public string ScheduleStatus { get; set; }
+    public Boolean CancelledTrip { get; set; }
+    public Boolean CancelledStop { get; set; }
+    public Boolean AddedTrip { get; set; }
+    public Boolean AddedStop { get; set; }
+    public DateTime LastUpdated { get; set; }
+    /*
         public Schedule(string destination, DateTime expectedLeaveTime, Int32 expectedCountdown, string scheduleStatus,
             Boolean cancelledTrip, Boolean cancelledStop, Boolean addedTrip, Boolean addedStop, DateTime lastUpdated)
         {
@@ -111,5 +106,6 @@ namespace ConsoleApplication1
             AddedStop = addedStop;
             LastUpdated = lastUpdated;
         }
+        */
 
-    }
+}
