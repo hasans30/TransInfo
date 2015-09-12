@@ -46,6 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadHttpRequest.cs" />
+    <Compile Include="TransitInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
