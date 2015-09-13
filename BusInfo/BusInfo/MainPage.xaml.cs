@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusInfo.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,6 +44,13 @@ namespace BusInfo
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+        }
+
+        private void RefreshClick(object sender, RoutedEventArgs e)
+        {
+            var vm = (MainViewModel)DataContext;
+            vm.RefreshCommand.Execute(null);
+
         }
     }
 }

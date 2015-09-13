@@ -15,11 +15,18 @@ namespace BusInfo.ViewModel
         private readonly INavigationService _navigationService;
 
         public NextBus NextBus { get; set; }
+       
         public string AppName
+        {
+            get { return NextBus.RouteName; }
+        }
+
+        public string Information
         {
             get
             {
-                return "My App";
+                return string.Format("{0}\n{1}\n{2}", NextBus.RouteName, NextBus.Schedules[0].ExpectedLeaveTime, NextBus.Schedules[1].ExpectedLeaveTime);
+
             }
         }
         public MainViewModel(
@@ -39,7 +46,6 @@ namespace BusInfo.ViewModel
                 new DialogService(),
                 new NavigationService())
         {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,7 +74,8 @@ namespace BusInfo.ViewModel
 
         private async Task Refresh()
         {
-            var NextBus=await _dataService.GetNextBus();
+            NextBus=await _dataService.GetNextBus();
+            RaisePropertyChanged("Information");
         }
     }
 }
