@@ -14,12 +14,21 @@ namespace BusInfo.ViewModel
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
 
-        public NextBus NextBus { get; set; }
+        public NextBus NextBusNBCambie57 { get; set; }
+        public NextBus NextBusSBCambie57 { get; set; }
+        public NextBus NextBusNBOak57 { get; set; }
+
         public string AppName
+        {
+            get { return NextBusNBCambie57.RouteName; }
+        }
+
+        public string InformationNBCambie57
         {
             get
             {
-                return "My App";
+                return string.Format("{0}\n{1}\n{2}", NextBusNBCambie57.RouteName, NextBusNBCambie57.Schedules[0].ExpectedLeaveTime, NextBusNBCambie57.Schedules[1].ExpectedLeaveTime);
+
             }
         }
         public MainViewModel(
@@ -39,7 +48,6 @@ namespace BusInfo.ViewModel
                 new DialogService(),
                 new NavigationService())
         {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -68,7 +76,8 @@ namespace BusInfo.ViewModel
 
         private async Task Refresh()
         {
-            var NextBus=await _dataService.GetNextBus();
+            NextBusNBCambie57=await _dataService.GetNextBus();
+            RaisePropertyChanged("InformationNBCambie57");
         }
     }
 }
