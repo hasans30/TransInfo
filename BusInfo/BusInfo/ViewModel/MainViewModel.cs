@@ -1,7 +1,9 @@
 using BusInfo.Command;
 using BusInfo.Helpers;
 using BusInfo.Model;
+using System;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BusInfo.ViewModel
@@ -14,21 +16,19 @@ namespace BusInfo.ViewModel
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
 
-        public NextBus NextBusNBCambie57 { get; set; }
-        public NextBus NextBusSBCambie57 { get; set; }
-        public NextBus NextBusNBOak57 { get; set; }
+        private NextBus NextBus { get; set; }
 
         public string AppName
         {
-            get { return NextBusNBCambie57.RouteName; }
+            get { return NextBus.RouteName; }
         }
 
-        public string InformationNBCambie57
+        private string _information;
+        public string Information
         {
             get
             {
-                return string.Format("{0}\n{1}\n{2}", NextBusNBCambie57.RouteName, NextBusNBCambie57.Schedules[0].ExpectedLeaveTime, NextBusNBCambie57.Schedules[1].ExpectedLeaveTime);
-
+                return _information;
             }
         }
         public MainViewModel(
@@ -76,8 +76,27 @@ namespace BusInfo.ViewModel
 
         private async Task Refresh()
         {
-            NextBusNBCambie57=await _dataService.GetNextBus();
-            RaisePropertyChanged("InformationNBCambie57");
+            StringBuilder sb = new StringBuilder();
+            int[] stopIDs = new int[] { 50747, 61073 };//, 50996 , 50987 };
+            NextBus [] nb = new NextBus [stopIDs.Length];
+            int i = 0;
+            foreach (int stopID in stopIDs)
+            {
+                nb[i++] = await _dataService.GetNextBus(stopID);
+            }
+
+            i = 0;
+            foreach(int stopID in stopIDs)
+            {
+                sb.AppendLine(string.Format("@StopID{0}-{1}-{2} to {3} \n{4}\n{5}\n", 
+                    stopID, nb[i].RouteName, nb[i].Direction,
+                    nb[i].Schedules[0].Destination,
+                    nb[i].Schedules[0].ExpectedLeaveTime, 
+                    nb[i].Schedules[1].ExpectedLeaveTime));
+                i++;
+            }
+            _information = sb.ToString();
+            RaisePropertyChanged("Information");
         }
     }
 }
