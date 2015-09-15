@@ -6,5 +6,6 @@ namespace BusInfo.Model
     {
         Task <NextBus> GetNextBus();
         Task <NextBus> GetNextBus(int stopId);
+        Task <NextBus> GetNextBus(int stopId, int busId);
     }
 }

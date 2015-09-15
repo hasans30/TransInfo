@@ -3,6 +3,7 @@ using BusInfo.Helpers;
 using BusInfo.Model;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,23 +78,23 @@ namespace BusInfo.ViewModel
         private async Task Refresh()
         {
             StringBuilder sb = new StringBuilder();
-            int[] stopIDs = new int[] { 50747, 61073 };//, 50996 , 50987 };
-            NextBus [] nb = new NextBus [stopIDs.Length];
-            int i = 0;
-            foreach (int stopID in stopIDs)
+            int[,] stopIDs = new int[,] { { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
+            
+            NextBus [] nb = new NextBus [4];
+            for (int i= 0;i< 4;i++)
             {
-                nb[i++] = await _dataService.GetNextBus(stopID);
+                nb[i] = await _dataService.GetNextBus(stopIDs[i,0],stopIDs[i,1]);
             }
 
-            i = 0;
-            foreach(int stopID in stopIDs)
+            
+            for(int j=0;j<4;j++)
             {
+
                 sb.AppendLine(string.Format("@StopID{0}-{1}-{2} to {3} \n{4}\n{5}\n", 
-                    stopID, nb[i].RouteName, nb[i].Direction,
-                    nb[i].Schedules[0].Destination,
-                    nb[i].Schedules[0].ExpectedLeaveTime, 
-                    nb[i].Schedules[1].ExpectedLeaveTime));
-                i++;
+                    stopIDs[j,0], nb[j].RouteName, nb[j].Direction,
+                    nb[j].Schedules[0].Destination,
+                    nb[j].Schedules[0].ExpectedLeaveTime, 
+                    nb[j].Schedules[1].ExpectedLeaveTime));
             }
             _information = sb.ToString();
             RaisePropertyChanged("Information");
