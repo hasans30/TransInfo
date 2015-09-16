@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
+using GalaSoft.MvvmLight;
 namespace BusInfo.Model
 {
 
-    public class NextBus : INotifyPropertyChanged
+    public class NextBus : ObservableObject
     {
         public string RouteNo { get; set; }
         public string RouteName { get; set; }
@@ -20,16 +21,6 @@ namespace BusInfo.Model
         public NextBus()
         {
             Schedules = new List<Schedule>();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         public NextBus(string str)

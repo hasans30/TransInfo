@@ -6,11 +6,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 
 namespace BusInfo.ViewModel
 {
 
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
 
         private readonly ITransLinkService _dataService;
@@ -31,6 +32,10 @@ namespace BusInfo.ViewModel
             {
                 return _information;
             }
+            set
+            {
+                Set(()=>Information,ref _information, value);
+            }
         }
         public MainViewModel(
             ITransLinkService dataService,
@@ -43,37 +48,22 @@ namespace BusInfo.ViewModel
             _navigationService = navigationService;
         }
 
+        public RelayCommand RefreshCommand
+        {
+            get;
+            private set;
+        }
+
         public MainViewModel(): 
             this(
                 new TransLinkService(),
                 new DialogService(),
                 new NavigationService())
         {
+            RefreshCommand = new RelayCommand( async ()=> { await Refresh();}); //Simplifying RefreshCommand assignment
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void RaisePropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        private RelayCommand _refreshCommand;
-        public RelayCommand RefreshCommand
-        {
-            get
-            {
-                return _refreshCommand
-                    ?? (_refreshCommand = new RelayCommand(
-                                          async () =>
-                                          {
-                                              await Refresh();
-                                          }));
-            }
-        }
+       
 
         private async Task Refresh()
         {
@@ -96,8 +86,7 @@ namespace BusInfo.ViewModel
                     nb[j].Schedules[0].ExpectedLeaveTime, 
                     nb[j].Schedules[1].ExpectedLeaveTime));
             }
-            _information = sb.ToString();
-            RaisePropertyChanged("Information");
+            Information = sb.ToString(); // no need to call raisepropertychange event as setter of this uses set() method that will call implicitly 
         }
     }
 }
