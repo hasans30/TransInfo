@@ -1,4 +1,3 @@
-using BusInfo.Command;
 using BusInfo.Helpers;
 using BusInfo.Model;
 using System;
@@ -7,6 +6,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace BusInfo.ViewModel
 {
