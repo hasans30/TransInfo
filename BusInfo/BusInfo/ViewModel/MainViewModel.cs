@@ -48,10 +48,14 @@ namespace BusInfo.ViewModel
             _navigationService = navigationService;
         }
 
+        RelayCommand _refreshCommand;
         public RelayCommand RefreshCommand
         {
-            get;
-            private set;
+            get
+            {
+                return _refreshCommand ??
+                    (_refreshCommand = new RelayCommand(async () => { await Refresh(); })); //Simplifying RefreshCommand assignment)
+            }
         }
 
         public MainViewModel(): 
@@ -60,7 +64,6 @@ namespace BusInfo.ViewModel
                 new DialogService(),
                 new NavigationService())
         {
-            RefreshCommand = new RelayCommand( async ()=> { await Refresh();}); //Simplifying RefreshCommand assignment
         }
 
        
