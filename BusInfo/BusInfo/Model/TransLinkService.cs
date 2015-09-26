@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BusInfo.Model
 {
-    class TransLinkService : ITransLinkService
+    class TranslinkService : ITranslinkService
     {
         private const string baseURL = "http://api.translink.ca/rttiapi/v1/stops/{0}/estimates?apikey=13EpwPoHGIACYo3NM5Lh&routeno={1}";
         public async Task <NextBus> GetNextBus()

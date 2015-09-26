@@ -92,6 +92,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Design\DesignTranslinkInfoService.cs" />
     <Compile Include="MainPage.xaml.cs" />
     <Compile Include="Model\ITransLinkService.cs" />
     <Compile Include="Model\TranslinkInfo.cs" />

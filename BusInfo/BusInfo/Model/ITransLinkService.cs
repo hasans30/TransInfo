@@ -2,7 +2,7 @@
 
 namespace BusInfo.Model
 {
-    public interface ITransLinkService
+    public interface ITranslinkService
     {
         Task <NextBus> GetNextBus();
         Task <NextBus> GetNextBus(int stopId);

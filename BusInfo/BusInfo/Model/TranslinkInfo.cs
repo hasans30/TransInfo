@@ -12,12 +12,13 @@ namespace BusInfo.Model
         public string RouteNo { get; set; }
         public string RouteName { get; set; }
         public string Direction { get; set; }
+        public string Destination { get; set; }
         public string RouteMapUrl { get; set; }
+        public string FirstEstimatedTime { get; set; }
+        public string SecondEstimatedTime { get; set; }
+        public string ThirdEstimatedTime { get; set; }
 
         public List<Schedule> Schedules;
-
-
-
         public NextBus()
         {
             Schedules = new List<Schedule>();
@@ -37,8 +38,6 @@ namespace BusInfo.Model
                 Direction = routeNode.Element("Direction").Value;
                 RouteMapUrl = routeNode.Element("RouteMap").Value;
 
-
-
                 IEnumerable<Schedule> xnode1 = from elm in xdoc.Elements("NextBus").Elements("Schedules").Elements("Schedule")
                                                select new Schedule
                                                {
@@ -54,6 +53,10 @@ namespace BusInfo.Model
                                                };
 
                 Schedules = xnode1.ToList();
+                Destination = Schedules[0].Destination;
+                FirstEstimatedTime = Schedules[0].ExpectedLeaveTime.ToString("HH:mm");
+                SecondEstimatedTime = Schedules[1].ExpectedLeaveTime.ToString("HH:mm");
+                ThirdEstimatedTime = Schedules[2].ExpectedLeaveTime.ToString("HH:mm");
             }
 
         }

@@ -1,4 +1,5 @@
-﻿using BusInfo.ViewModel;
+﻿using BusInfo.Model;
+using BusInfo.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,5 +53,6 @@ namespace BusInfo
             vm.RefreshCommand.Execute(null);
 
         }
+     
     }
 }
