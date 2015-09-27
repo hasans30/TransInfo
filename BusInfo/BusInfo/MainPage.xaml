@@ -25,16 +25,16 @@
                       />
         -->
         <!--approach #2 - using Command -->
-        <Button x:Name="button" 
+        <Button x:Name="button" Visibility="Collapsed"
                 Content="Get Bus Info" 
-                Margin="103,0,0,14"
-                Command="{Binding RefreshCommand}" Height="77" Width="155" VerticalAlignment="Bottom"
+                Margin="26,0,0,114"
+                Command="{Binding RefreshCommand}" Height="77" Width="155" VerticalAlignment="Bottom" d:LayoutOverrides="HorizontalAlignment"
             />
         <StackPanel Height="22" VerticalAlignment="Top" Margin="10,0" d:LayoutOverrides="LeftPosition, RightPosition">
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Translink BC - Transit Information" Height="27"/>
         </StackPanel>
         <Grid x:Name="ContentPanel" Margin="26,56,10,88" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
-            <ListBox x:Name="listBox" ItemsSource="{Binding NextBusList}">
+            <ListBox x:Name="listBox" ItemsSource="{Binding NextBusList}" Margin="0,0,37,109" d:LayoutOverrides="LeftPosition, RightPosition">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -49,5 +49,15 @@
 
             </ListBox>
         </Grid>
+        <Border Height="78" Margin="111,0,138,0" VerticalAlignment="Bottom">
+            <Grid>
+                <AppBarButton x:Name="appBarButton" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" Margin="0,0,71,0" 
+                              Click="RefreshClick"
+                              VerticalAlignment="Stretch" d:LayoutOverrides="Width, Height, LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+                <AppBarButton x:Name="appBarAddButton" HorizontalAlignment="Stretch" Icon="Add" Label="Add" Margin="71,0,0,0" 
+                              Click="appBarAddButton_Click"
+                              VerticalAlignment="Stretch" RenderTransformOrigin="-0.656,0.534" d:LayoutOverrides="Width, Height, LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

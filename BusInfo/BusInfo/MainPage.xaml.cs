@@ -51,8 +51,11 @@ namespace BusInfo
         {
             var vm = (MainViewModel)DataContext;
             vm.RefreshCommand.Execute(null);
-
         }
-     
+
+        private void appBarAddButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SearchPage)); //This is new way of navigating in windows 8.1
+        }
     }
 }
