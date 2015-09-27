@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusInfo.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,18 @@ namespace BusInfo
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = (MainViewModel)DataContext;
+            vm.AddCommand.Execute(null);
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void searchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            searchBox.Text = "";
         }
     }
 }

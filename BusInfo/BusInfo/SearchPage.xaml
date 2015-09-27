@@ -6,9 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    DataContext="{Binding Main, Source={StaticResource Locator}}"
+    >
 
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="58,195,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Height="103" Width="286"/>
+        <TextBox x:Name="searchBox" HorizontalAlignment="Left" Margin="46,39,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="{Binding EnteredTransInfo, Mode=TwoWay}"
+                 VerticalAlignment="Top" Width="338"
+                 GotFocus="searchBox_GotFocus"
+                 
+                 />
+        <Button x:Name="button" Content="+" HorizontalAlignment="Left" Margin="266.332,75.287,0,0" VerticalAlignment="Top" Width="101.402" Height="38" Click="button_Click" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto">
+        </Button>
     </Grid>
 </Page>

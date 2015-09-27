@@ -27,6 +27,15 @@ namespace BusInfo.ViewModel
         {
             get { return "Some Name -- Fix It -- TODO"; }
         }
+        public int EnteredTransInfo
+        {
+            get; set;
+        }
+
+        private List<int> UserWatchList //TODO: will be good idea to have seperate model for such user preference
+        {
+            get; set;
+        }
 
         public MainViewModel(
             ITranslinkService dataService,
@@ -38,6 +47,14 @@ namespace BusInfo.ViewModel
             _dialogService = dialogService;
             _navigationService = navigationService;
             NextBusList = new ObservableCollection<NextBus>();
+            UserWatchList = new List<int>();
+            int[,] stopIDs = new int[,] { { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
+            for(int i=0;i<4;i++)
+            {
+                UserWatchList.Add(stopIDs[i, 0]);
+                UserWatchList.Add(stopIDs[i, 1]);
+            }
+           
 #if DEBUG
             if (IsInDesignMode)
             {
@@ -46,13 +63,23 @@ namespace BusInfo.ViewModel
 #endif
 
         }
-        public MainViewModel() :
-        this(
-            new TranslinkService(),
-            new DialogService(),
-            new NavigationService())
+
+
+        RelayCommand _addCommand;
+        public RelayCommand AddCommand
         {
-            NextBusList = new ObservableCollection<NextBus>();
+            get
+            {
+                return _addCommand ?? (
+                    _addCommand = new RelayCommand(
+                           async
+                           () => { UserWatchList.Add(EnteredTransInfo);
+                                UserWatchList.Add(17);
+                                await Refresh();
+                            }
+                        )
+                    );
+            }
         }
 
         RelayCommand _refreshCommand;
@@ -64,16 +91,19 @@ namespace BusInfo.ViewModel
                     (_refreshCommand = new RelayCommand(async () => { await Refresh(); })); //Simplifying RefreshCommand assignment)
             }
         }
+
         private async Task Refresh()
         {
-            int[,] stopIDs = new int[,] { { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
             NextBusList.Clear();
-            for (int i= 0;i< 4;i++)
+            for(int i=0; i<UserWatchList.Count;i+=2)
             {
-                var result = await _dataService.GetNextBus(stopIDs[i,0],stopIDs[i,1]);
+                var result = await _dataService.GetNextBus(
+                    UserWatchList[i]
+                    ,UserWatchList[i+1]);
                 NextBusList.Add(result);
+                
             }            
         }
-       
+
     }
 }

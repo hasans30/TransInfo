@@ -1,5 +1,6 @@
 ﻿using System;
 using Windows.UI.Xaml;
+using Windows.Devices;
 
 namespace BusInfo.Helpers
 {
@@ -12,7 +13,7 @@ namespace BusInfo.Helpers
 
         public void NavigateTo(Uri uri)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
