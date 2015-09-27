@@ -67,7 +67,7 @@ namespace BusInfo.ViewModel
         private async Task Refresh()
         {
             int[,] stopIDs = new int[,] { { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
-            
+            NextBusList.Clear();
             for (int i= 0;i< 4;i++)
             {
                 var result = await _dataService.GetNextBus(stopIDs[i,0],stopIDs[i,1]);
