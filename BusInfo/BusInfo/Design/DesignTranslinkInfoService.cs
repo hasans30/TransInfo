@@ -9,17 +9,17 @@ namespace BusInfo.Design
 {
     class DesignTranslinkInfoService : ITranslinkService
     {
-        public Task<NextBus> GetNextBus()
+        public Task<NextBuses> GetNextBus()
         {
             throw new NotImplementedException();
         }
 
-        public Task<NextBus> GetNextBus(int stopId)
+        public Task<NextBuses> GetNextBus(int stopId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<NextBus> GetNextBus(int stopNo, int busNo)
+        public Task<NextBuses> GetNextBus(int stopNo, int busNo)
         {
             NextBus bs = new NextBus {
                 RouteNo = busNo.ToString(),
@@ -33,7 +33,9 @@ namespace BusInfo.Design
                 Schedules = { new Schedule { Destination = "dst", ExpectedLeaveTime = DateTime.Now },
                     new Schedule { Destination = "dst", ExpectedLeaveTime = DateTime.Now } }
             };
-            return Task.FromResult(bs);
+            NextBuses nbs = new NextBuses();
+            nbs.Buses.Add(bs);
+            return Task.FromResult(nbs);
         }
 
     }

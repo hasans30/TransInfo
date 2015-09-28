@@ -26,10 +26,7 @@ namespace BusInfo.Model
 
         public NextBus(string str)
         {
-            XElement xdoc = XElement.Parse(str);
-
-            var routeNode = (from elm in xdoc.Elements("NextBus")
-                             select elm).SingleOrDefault();
+            XElement routeNode = XElement.Parse(str);
 
             if (routeNode != null)
             {
@@ -38,7 +35,7 @@ namespace BusInfo.Model
                 Direction = routeNode.Element("Direction").Value;
                 RouteMapUrl = routeNode.Element("RouteMap").Value;
 
-                IEnumerable<Schedule> xnode1 = from elm in xdoc.Elements("NextBus").Elements("Schedules").Elements("Schedule")
+                IEnumerable<Schedule> xnode1 = from elm in routeNode.Elements("Schedules").Elements("Schedule")
                                                select new Schedule
                                                {
                                                    Destination = elm.Element("Destination").Value,
@@ -74,6 +71,48 @@ namespace BusInfo.Model
         public Boolean AddedTrip { get; set; }
         public Boolean AddedStop { get; set; }
         public DateTime LastUpdated { get; set; }
+
+    }
+
+
+    public class NextBuses
+    {
+        public Int64 StopID;
+        List<String> RouteNos { get; set; }
+        private List<NextBus> _buses;
+        public List<NextBus> Buses
+        {
+            get;
+            set;
+        }
+
+        public NextBuses()
+        {
+            Buses = new List<NextBus>();
+            RouteNos = new List<String>();
+            StopID = 0;
+        }
+
+
+        public NextBuses(string xml, int stopID)
+        {
+            Buses = new List<NextBus>();
+            RouteNos = new List<String>();
+            XElement xdoc = XElement.Parse(xml);
+            var routeNodes = (from elm in xdoc.Elements("NextBus")
+                             select elm);
+
+            foreach(var routeNode in routeNodes)
+            {
+                NextBus nb = new NextBus(routeNode.ToString());
+                Buses.Add(nb);
+                RouteNos.Add(nb.RouteNo);
+            }
+
+            this.StopID = stopID;
+
+        }
+
 
     }
 }

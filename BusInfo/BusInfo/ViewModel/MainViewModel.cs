@@ -100,7 +100,7 @@ namespace BusInfo.ViewModel
                 var result = await _dataService.GetNextBus(
                     UserWatchList[i]
                     ,UserWatchList[i+1]);
-                NextBusList.Add(result);
+                NextBusList.Add(result.Buses[0]); //Need to modify this code to handle for list of buses for a given stop
                 
             }            
         }
