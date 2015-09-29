@@ -38,8 +38,18 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Text="{Binding RouteNo}"/>
-                            <TextBlock Text="{Binding  Destination}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding RouteNo}"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Destination}"/>
+                                <TextBlock Grid.Column="2" Text="Stop No:"/>
+                                <TextBlock Grid.Column="3" Text="{Binding StopNo}"/>
+                            </Grid>
                             <TextBlock Text="{Binding FirstEstimatedTime}"/>
                             <TextBlock Text="{Binding SecondEstimatedTime}"/>
                             <TextBlock Text="{Binding ThirdEstimatedTime}"/>

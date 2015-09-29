@@ -9,6 +9,21 @@ namespace BusInfo.Design
 {
     class DesignTranslinkInfoService : ITranslinkService
     {
+        public void CacheUserPreference(string strResponse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ClearUserPreferenceCache()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetCachedUserPreference()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<NextBuses> GetNextBus()
         {
             throw new NotImplementedException();

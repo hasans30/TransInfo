@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace BusInfo.Model
 {
@@ -51,7 +52,34 @@ namespace BusInfo.Model
             }
         }
 
+        private StorageFolder roamingFolder = null;
+        private const string filename = "UserPreference.txt"; //TODO: Move to constant file
 
+        /// <summary>
+        /// This checkes for strResponse - if not null, will try to write
+        /// </summary>
+        /// <param name="strResponse"></param>
+        public async void CacheUserPreference(string strResponse)
+        {
+            roamingFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            StorageFile file = await roamingFolder.CreateFileAsync(filename,CreationCollisionOption.OpenIfExists);
+            if (strResponse != null)
+                await FileIO.AppendTextAsync(file, strResponse);
+        }
 
+        public async Task< string> GetCachedUserPreference()
+        {
+            roamingFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            StorageFile file = await roamingFolder.GetFileAsync(filename);
+            string response = await FileIO.ReadTextAsync(file);
+            return response;
+        }
+
+        public async void ClearUserPreferenceCache()
+        {
+            roamingFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            StorageFile file = await roamingFolder.CreateFileAsync(filename,CreationCollisionOption.ReplaceExisting);
+
+        }
     }
 }

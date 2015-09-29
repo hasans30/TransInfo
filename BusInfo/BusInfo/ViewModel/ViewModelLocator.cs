@@ -30,8 +30,11 @@ namespace BusInfo.ViewModel
             {
                 translinkService = new TranslinkService();
             }
+            //Cache Service code - TODO
+            translinkService.CacheUserPreference("0");
 
             Main = new MainViewModel(translinkService, dialogService, navigationService);
+            //Initializing User Preference storage
         }
     }
 }

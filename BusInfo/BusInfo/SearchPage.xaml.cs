@@ -48,5 +48,11 @@ namespace BusInfo
         {
             searchBox.Text = "";
         }
+
+        public void clearCache_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = (MainViewModel)DataContext;
+            vm.ClearCache.Execute(null);
+        }
     }
 }

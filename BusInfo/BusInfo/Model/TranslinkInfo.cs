@@ -10,6 +10,7 @@ namespace BusInfo.Model
     public class NextBus : ObservableObject
     {
         public string RouteNo { get; set; }
+        public string StopNo { get; set; }
         public string RouteName { get; set; }
         public string Direction { get; set; }
         public string Destination { get; set; }
@@ -24,8 +25,10 @@ namespace BusInfo.Model
             Schedules = new List<Schedule>();
         }
 
-        public NextBus(string str)
+        public NextBus(string str, string stopNo)
         {
+            this.StopNo = stopNo;
+        
             XElement routeNode = XElement.Parse(str);
 
             if (routeNode != null)
@@ -104,7 +107,7 @@ namespace BusInfo.Model
 
             foreach(var routeNode in routeNodes)
             {
-                NextBus nb = new NextBus(routeNode.ToString());
+                NextBus nb = new NextBus(routeNode.ToString(), Convert.ToString(stopID));
                 Buses.Add(nb);
                 RouteNos.Add(nb.RouteNo);
             }

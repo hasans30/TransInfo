@@ -48,11 +48,12 @@ namespace BusInfo.ViewModel
             _navigationService = navigationService;
             NextBusList = new ObservableCollection<NextBus>();
             UserWatchList = new List<int>();
-            int[,] stopIDs = new int[,] { { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
-            for(int i=0;i<4;i++)
+            //int[,] stopIDs = new int[,] { { 50412, 0 },  { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
+            string userPreference = _dataService.GetCachedUserPreference().Result;
+            int[] stopIDs = new int[] { 50747, 61073,50996, 50987 };
+            for(int i=0;i<stopIDs.Length;i++)
             {
-                UserWatchList.Add(stopIDs[i, 0]);
-                UserWatchList.Add(stopIDs[i, 1]);
+                UserWatchList.Add(stopIDs[i]);
             }
            
 #if DEBUG
@@ -63,7 +64,19 @@ namespace BusInfo.ViewModel
 #endif
 
         }
-
+        //TODO: Implement Cache service for the app. fix during that time
+        RelayCommand _clearCache;
+        public RelayCommand ClearCache
+        {
+            get
+            {
+                return _clearCache ?? (
+                    _clearCache = new RelayCommand(
+                          () => {  _dataService.ClearUserPreferenceCache(); }
+                        )
+                    );
+            }
+        }
 
         RelayCommand _addCommand;
         public RelayCommand AddCommand
@@ -74,8 +87,8 @@ namespace BusInfo.ViewModel
                     _addCommand = new RelayCommand(
                            async
                            () => { UserWatchList.Add(EnteredTransInfo);
-                                UserWatchList.Add(17);
                                 await Refresh();
+                                //_dataService.CacheUserPreference(EnteredTransInfo.ToString());
                             }
                         )
                     );
@@ -88,22 +101,31 @@ namespace BusInfo.ViewModel
             get
             {
                 return _refreshCommand ??
-                    (_refreshCommand = new RelayCommand(async () => { await Refresh(); })); //Simplifying RefreshCommand assignment)
+                    (_refreshCommand = new RelayCommand(async () => { await Refresh();
+                    })); //Simplifying RefreshCommand assignment)
             }
         }
 
         private async Task Refresh()
         {
             NextBusList.Clear();
-            for(int i=0; i<UserWatchList.Count;i+=2)
+            //UserWatchList.AddRange( ParseToList(_dataService.GetCachedUserPreference().Result));
+
+            for (int i=0; i<UserWatchList.Count;i++)
             {
                 var result = await _dataService.GetNextBus(
-                    UserWatchList[i]
-                    ,UserWatchList[i+1]);
-                NextBusList.Add(result.Buses[0]); //Need to modify this code to handle for list of buses for a given stop
+                    UserWatchList[i]);
+
+                //adding the responses returned by the API
+                foreach (var val in result.Buses)
+                    NextBusList.Add(val);
                 
             }            
         }
-
+        //Fix it during cache implmentation
+        private List<int> ParseToList(string result)
+        {
+            return new List<int>(50996);
+        }
     }
 }
