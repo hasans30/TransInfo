@@ -7,11 +7,6 @@
 
     <DataTemplate x:Key="TransInfoTemplate">
         <StackPanel>
-            <Interactivity:Interaction.Behaviors>
-                <Core:EventTriggerBehavior EventName="Tapped">
-                    <Core:NavigateToPageAction Parameter="{Binding DataContext, ElementName=grid, Mode=OneWay}" TargetPage="BusInfo.DetailsInfo/>
-                </Core:EventTriggerBehavior>
-            </Interactivity:Interaction.Behaviors>
             <Grid x:Name="grid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
