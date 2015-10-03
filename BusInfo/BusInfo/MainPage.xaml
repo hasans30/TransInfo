@@ -34,29 +34,8 @@
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Translink BC - Transit Information" Height="27"/>
         </StackPanel>
         <Grid x:Name="ContentPanel" Margin="26,56,10,88" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
-            <ListBox x:Name="listBox" ItemsSource="{Binding NextBusList}" Margin="0,0,37,109" d:LayoutOverrides="LeftPosition, RightPosition">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding RouteNo}"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Destination}"/>
-                                <TextBlock Grid.Column="2" Text="Stop No:"/>
-                                <TextBlock Grid.Column="3" Text="{Binding StopNo}"/>
-                            </Grid>
-                            <TextBlock Text="{Binding FirstEstimatedTime}"/>
-                            <TextBlock Text="{Binding SecondEstimatedTime}"/>
-                            <TextBlock Text="{Binding ThirdEstimatedTime}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-
+            <ListBox x:Name="listBox" ItemsSource="{Binding NextBusList}" 
+                     ItemTemplate="{StaticResource TransInfoTemplate}" FontFamily="Global User Interface">
             </ListBox>
         </Grid>
         <Border Height="78" Margin="111,0,138,0" VerticalAlignment="Bottom">
