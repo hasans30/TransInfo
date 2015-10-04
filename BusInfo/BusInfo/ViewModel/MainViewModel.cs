@@ -32,6 +32,12 @@ namespace BusInfo.ViewModel
             get; set;
         }
 
+        public ObservableCollection<Schedule> SelectedBusSchedule
+        {
+            get;
+            set;
+        }
+
         private List<int> UserWatchList //TODO: will be good idea to have seperate model for such user preference
         {
             get; set;
@@ -47,6 +53,7 @@ namespace BusInfo.ViewModel
             _dialogService = dialogService;
             _navigationService = navigationService;
             NextBusList = new ObservableCollection<NextBus>();
+            SelectedBusSchedule = new ObservableCollection<Schedule>();
             UserWatchList = new List<int>();
             //int[,] stopIDs = new int[,] { { 50412, 0 },  { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
             string userPreference = _dataService.GetCachedUserPreference().Result;
@@ -103,6 +110,26 @@ namespace BusInfo.ViewModel
                 return _refreshCommand ??
                     (_refreshCommand = new RelayCommand(async () => { await Refresh();
                     })); //Simplifying RefreshCommand assignment)
+            }
+        }
+
+
+        RelayCommand<NextBus> _showDetailsCommand;
+        public RelayCommand<NextBus> ShowDetailsCommand
+        {
+            get
+            {
+                 return _showDetailsCommand ??
+                    (_showDetailsCommand = new RelayCommand<NextBus>(
+                         (_selectedbus) => {
+                             SelectedBusSchedule.Clear();
+                             foreach(var val in _selectedbus.Schedules)
+                             {
+                                 SelectedBusSchedule.Add(val);
+                             }
+
+                             })
+                    );
             }
         }
 

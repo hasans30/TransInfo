@@ -25,4 +25,12 @@
         </StackPanel>
     </DataTemplate>
 
+    <DataTemplate x:Key="ScheduleInfoTemplate">
+        <StackPanel>
+           <TextBlock Grid.Column="0" Text="{Binding Destination}"/>
+           <TextBlock Grid.Column="1" Text="{Binding ExpectedLeaveTime}"/>
+        </StackPanel>
+    </DataTemplate>
+
+
 </ResourceDictionary>

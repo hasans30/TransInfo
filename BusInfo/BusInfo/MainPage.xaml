@@ -35,7 +35,9 @@
         </StackPanel>
         <Grid x:Name="ContentPanel" Margin="26,56,10,88" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition">
             <ListBox x:Name="listBox" ItemsSource="{Binding NextBusList}" 
-                     ItemTemplate="{StaticResource TransInfoTemplate}" FontFamily="Global User Interface">
+                     ItemTemplate="{StaticResource TransInfoTemplate}" FontFamily="Global User Interface"
+                     SelectionChanged="listBox_SelectionChanged"
+                     >
             </ListBox>
         </Grid>
         <Border Height="78" Margin="111,0,138,0" VerticalAlignment="Bottom">

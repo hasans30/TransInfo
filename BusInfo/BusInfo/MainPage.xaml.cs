@@ -57,5 +57,13 @@ namespace BusInfo
         {
             this.Frame.Navigate(typeof(SearchPage)); //This is new way of navigating in windows 8.1
         }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var vm = (MainViewModel)DataContext;
+            var obj =  (sender as ListBox).SelectedItem as NextBus;
+            vm.ShowDetailsCommand.Execute(obj);
+            this.Frame.Navigate(typeof(DetailsPage));
+        }
     }
 }

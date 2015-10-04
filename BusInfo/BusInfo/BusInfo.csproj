@@ -96,8 +96,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Design\DesignTranslinkInfoService.cs" />
-    <Compile Include="DetailsInfo.xaml.cs">
-      <DependentUpon>DetailsInfo.xaml</DependentUpon>
+    <Compile Include="DetailsPage.xaml.cs">
+      <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs" />
     <Compile Include="Model\ITransLinkService.cs" />
@@ -170,7 +170,7 @@
     <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DetailsInfo.xaml">
+    <Page Include="DetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
