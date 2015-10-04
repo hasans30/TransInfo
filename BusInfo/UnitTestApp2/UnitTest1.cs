@@ -27,6 +27,14 @@ namespace BusInfoTest
             vm.RefreshCommand.Execute(null);
             Assert.IsNotNull(vm.NextBusList);
         }
+        [TestMethod]
+        public void TestTransAPI()
+        {
+            TranslinkService service = new TranslinkService();
+            Task<NextBuses> task = service.GetNextBus(50412);
+            NextBuses nbs = task.Result;
+            Assert.AreEqual("015", nbs.Buses[0].RouteNo);
+        }
 
         private class TestDialogService : IDialogService
         {
