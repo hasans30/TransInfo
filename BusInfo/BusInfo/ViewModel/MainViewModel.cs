@@ -20,7 +20,8 @@ namespace BusInfo.ViewModel
         private readonly IDialogService _dialogService;
         private readonly INavigationService _navigationService;
         public ObservableCollection<NextBus> NextBusList
-        {   get;
+        {
+            get;
             private set;
         }
         public string AppName
@@ -57,12 +58,12 @@ namespace BusInfo.ViewModel
             UserWatchList = new List<int>();
             //int[,] stopIDs = new int[,] { { 50412, 0 },  { 50747, 17 }, { 61073, 17 }, { 50996, 15 }, { 50987, 15 } };
             string userPreference = _dataService.GetCachedUserPreference().Result;
-            int[] stopIDs = new int[] { 50747, 61073,50996, 50987 };
-            for(int i=0;i<stopIDs.Length;i++)
+            int[] stopIDs = new int[] { 50747, 61073, 50996, 50987 };
+            for (int i = 0; i < stopIDs.Length; i++)
             {
                 UserWatchList.Add(stopIDs[i]);
             }
-           
+
 #if DEBUG
             if (IsInDesignMode)
             {
@@ -79,7 +80,7 @@ namespace BusInfo.ViewModel
             {
                 return _clearCache ?? (
                     _clearCache = new RelayCommand(
-                          () => {  _dataService.ClearUserPreferenceCache(); }
+                          () => { _dataService.ClearUserPreferenceCache(); }
                         )
                     );
             }
@@ -93,10 +94,12 @@ namespace BusInfo.ViewModel
                 return _addCommand ?? (
                     _addCommand = new RelayCommand(
                            async
-                           () => { UserWatchList.Add(EnteredTransInfo);
-                                await Refresh();
-                                //_dataService.CacheUserPreference(EnteredTransInfo.ToString());
-                            }
+                           () =>
+                           {
+                               UserWatchList.Add(EnteredTransInfo);
+                               await Refresh();
+                               //_dataService.CacheUserPreference(EnteredTransInfo.ToString());
+                           }
                         )
                     );
             }
@@ -108,7 +111,9 @@ namespace BusInfo.ViewModel
             get
             {
                 return _refreshCommand ??
-                    (_refreshCommand = new RelayCommand(async () => { await Refresh();
+                    (_refreshCommand = new RelayCommand(async () =>
+                    {
+                        await Refresh();
                     })); //Simplifying RefreshCommand assignment)
             }
         }
@@ -119,17 +124,19 @@ namespace BusInfo.ViewModel
         {
             get
             {
-                 return _showDetailsCommand ??
-                    (_showDetailsCommand = new RelayCommand<NextBus>(
-                         (_selectedbus) => {
-                             SelectedBusSchedule.Clear();
-                             foreach(var val in _selectedbus.Schedules)
-                             {
-                                 SelectedBusSchedule.Add(val);
-                             }
+                return _showDetailsCommand ??
+                   (_showDetailsCommand = new RelayCommand<NextBus>(
+                        (_selectedbus) =>
+                        {
+                            SelectedBusSchedule.Clear();
+                            if (_selectedbus != null)
+                                foreach (var val in _selectedbus.Schedules)
+                                {
+                                    SelectedBusSchedule.Add(val);
+                                }
 
-                             })
-                    );
+                        })
+                   );
             }
         }
 
@@ -138,7 +145,7 @@ namespace BusInfo.ViewModel
             NextBusList.Clear();
             //UserWatchList.AddRange( ParseToList(_dataService.GetCachedUserPreference().Result));
 
-            for (int i=0; i<UserWatchList.Count;i++)
+            for (int i = 0; i < UserWatchList.Count; i++)
             {
                 var result = await _dataService.GetNextBus(
                     UserWatchList[i]);
@@ -146,8 +153,8 @@ namespace BusInfo.ViewModel
                 //adding the responses returned by the API
                 foreach (var val in result.Buses)
                     NextBusList.Add(val);
-                
-            }            
+
+            }
         }
         //Fix it during cache implmentation
         private List<int> ParseToList(string result)
