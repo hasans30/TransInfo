@@ -6,7 +6,7 @@ using Windows.Storage;
 
 namespace BusInfo.Model
 {
-    class TranslinkService : ITranslinkService
+    public class TranslinkService : ITranslinkService
     {
         private const string baseURL = "http://api.translink.ca/rttiapi/v1/stops/{0}/estimates?apikey=13EpwPoHGIACYo3NM5Lh";
         public async Task <NextBuses> GetNextBus()
