@@ -203,6 +203,8 @@
     <Language Code="ky-kg" InMinimumRequirementSet="true" />
     <Language Code="lb" InMinimumRequirementSet="true" />
     <Language Code="lb-lu" InMinimumRequirementSet="true" />
+    <Language Code="lo" InMinimumRequirementSet="true" />
+    <Language Code="lo-la" InMinimumRequirementSet="true" />
     <Language Code="lt" InMinimumRequirementSet="true" />
     <Language Code="lt-lt" InMinimumRequirementSet="true" />
     <Language Code="lv" InMinimumRequirementSet="true" />
@@ -356,9 +358,9 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>16186WeatherApp.TransitInfo</MainPackageIdentityName>
+    <MainPackageIdentityName>16186WeatherApp.LangaraGardensTransitApp</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>TransitInfo</ReservedName>
+      <ReservedName>LangaraGardensTransitApp</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
@@ -366,6 +368,7 @@
     <MainPackageIdentityName>16186WeatherApp.WeatherAppIDC</MainPackageIdentityName>
     <MainPackageIdentityName>16186WeatherApp.WinWebApp1</MainPackageIdentityName>
     <MainPackageIdentityName>16186WeatherApp.BingWeather</MainPackageIdentityName>
+    <MainPackageIdentityName>16186WeatherApp.TransitInfo</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH66JLM" />
+  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH5GRF7" />
 </StoreAssociation>

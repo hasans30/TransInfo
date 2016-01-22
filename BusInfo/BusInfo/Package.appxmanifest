@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="16186WeatherApp.TransitInfo" Publisher="CN=FD7BDDA0-B28D-4F37-9950-A0EED549C67D" Version="1.1.0.3" />
-  <mp:PhoneIdentity PhoneProductId="4dde0a6d-0ee5-44b2-9444-b5ebcb2e7b55" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="16186WeatherApp.LangaraGardensTransitApp" Publisher="CN=FD7BDDA0-B28D-4F37-9950-A0EED549C67D" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="bbe3e243-3153-4bfa-8dfb-596fc94ffd9c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>TransitInfo</DisplayName>
+    <DisplayName>LangaraGardensTransitApp</DisplayName>
     <PublisherDisplayName>Weather App1</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -16,9 +16,12 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="BusInfo.App">
-      <m3:VisualElements DisplayName="TransitInfo" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="BusInfo" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="LangaraGardensTransitApp" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="This app helps Langara gardens residence with transite informatio. We get the information from translink.ca. There are 3 bus stand near LG. It shows you next buses in those bus stop so that you can plan which bus stand to head out for." ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
+        <m3:InitialRotationPreference>
+          <m3:Rotation Preference="portrait" />
+        </m3:InitialRotationPreference>
       </m3:VisualElements>
     </Application>
   </Applications>
